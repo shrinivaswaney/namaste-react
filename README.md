@@ -26,31 +26,36 @@ npx serve lec01
 
 ### Lec 02 – Igniting the App (`lec02/`)
 
-### Date - 06-10-2026
+### Date - 06-10-2026 to 08-10-2026
 
-Advantages of Parcel
+Theory: why a bundler (Parcel) is needed for a production React app.
 
-- Dev Build
-- Local Server
-- HMR: Hot Module Replacement
-- File Watching Algorithm - written in c++
-- Caching - Faster Builds
-- Image Optimisation
-- Minification
-- Bundling
-- Compression
-- Consistent Hashing
-- Code Splitting
-- Differential Bundling - to support older browsers
-- Diagnostics
-- Error Handling
-- HTTPs
-- Tree Shaking
-- Remove unused codes
+- npm: package manager; `package.json` tracks deps and scripts, `node_modules` holds installed code (`lec02/package.json:1-30`)
+- Bundler: combines modules, assets, and deps into browser-loadable bundles; entry is `index.html` with `<script type="module" src="./App.js">` (`lec02/index.html:10`)
+- Dev build: unoptimized build for local development with source maps and debug info
+- Local server: Parcel serves the app (default `http://localhost:1234`) so ESM imports like `import React from "react"` (`lec02/App.js:1-2`) resolve instead of failing on `file://`
+- HMR (Hot Module Replacement): swaps updated modules without a full reload, preserving state
+- File watching algorithm (C++): detects file changes efficiently to trigger rebuilds
+- Caching: stores build graph in `.parcel-cache` for faster rebuilds
+- Minification: removes whitespace, comments, shortens names for smaller production files
+- Bundling: merges many files into fewer bundles to reduce requests
+- Compression: gzips/brotlis output for faster transfer
+- Consistent hashing: content-based filenames in `dist/` so browsers cache bundles until content changes
+- Code splitting: breaks app into chunks loaded on demand instead of one large file
+- Differential bundling: builds separate modern/legacy bundles based on `browserslist` (`lec02/package.json:31-34`) to support older browsers
+- Diagnostics and error handling: readable build errors with code frames and overlay in browser
+- HTTPS: can serve locally over HTTPS to mirror production behavior
+- Tree shaking: removes unused exports/code from final bundle
 
 Run:
 
 ```bash
 cd lec02
-npm run dev
+npm install
+npm run dev    # parcel index.html -> http://localhost:1234
+npm run build  # parcel build index.html -> dist/
 ```
+
+### Lec 02 – Igniting the App (`lec03/`)
+
+### Date - 08-10-2026
