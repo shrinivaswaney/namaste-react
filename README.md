@@ -30,22 +30,22 @@ npx serve lec01
 
 Theory: why a bundler (Parcel) is needed for a production React app.
 
-- npm: package manager; `package.json` tracks deps and scripts, `node_modules` holds installed code (`lec02/package.json:1-30`)
-- Bundler: combines modules, assets, and deps into browser-loadable bundles; entry is `index.html` with `<script type="module" src="./App.js">` (`lec02/index.html:10`)
-- Dev build: unoptimized build for local development with source maps and debug info
-- Local server: Parcel serves the app (default `http://localhost:1234`) so ESM imports like `import React from "react"` (`lec02/App.js:1-2`) resolve instead of failing on `file://`
-- HMR (Hot Module Replacement): swaps updated modules without a full reload, preserving state
-- File watching algorithm (C++): detects file changes efficiently to trigger rebuilds
-- Caching: stores build graph in `.parcel-cache` for faster rebuilds
-- Minification: removes whitespace, comments, shortens names for smaller production files
-- Bundling: merges many files into fewer bundles to reduce requests
-- Compression: gzips/brotlis output for faster transfer
-- Consistent hashing: content-based filenames in `dist/` so browsers cache bundles until content changes
-- Code splitting: breaks app into chunks loaded on demand instead of one large file
-- Differential bundling: builds separate modern/legacy bundles based on `browserslist` (`lec02/package.json:31-34`) to support older browsers
-- Diagnostics and error handling: readable build errors with code frames and overlay in browser
-- HTTPS: can serve locally over HTTPS to mirror production behavior
-- Tree shaking: removes unused exports/code from final bundle
+- npm: package manager; `package.json` tracks deps and scripts, `node_modules` holds installed code (`lec02/package.json:1-30`).
+- Bundler: combines modules, assets, and deps into browser-loadable bundles; entry is `index.html` with `<script type="module" src="./App.js">` (`lec02/index.html:10`).
+- Dev build: unoptimized build for local development with source maps and debug info.
+- Local server: Parcel serves the app (default `http://localhost:1234`) so ESM imports like `import React from "react"` (`lec02/App.js:1-2`) resolve instead of failing on `file://`.
+- HMR (Hot Module Replacement): swaps updated modules without a full reload, preserving state.
+- File watching algorithm (C++): detects file changes efficiently to trigger rebuilds.
+- Caching: stores build graph in `.parcel-cache` for faster rebuilds.
+- Minification: removes whitespace, comments, shortens names for smaller production files.
+- Bundling: merges many files into fewer bundles to reduce requests.
+- Compression: gzips/brotlis output for faster transfer.
+- Consistent hashing: content-based filenames in `dist/` so browsers cache bundles until content changes.
+- Code splitting: breaks app into chunks loaded on demand instead of one large file.
+- Differential bundling: builds separate modern/legacy bundles based on `browserslist` (`lec02/package.json:31-34`) to support older browsers.
+- Diagnostics and error handling: readable build errors with code frames and overlay in browser.
+- HTTPS: can serve locally over HTTPS to mirror production behavior.
+- Tree shaking: removes unused exports/code from final bundle.
 
 Run:
 
@@ -56,6 +56,28 @@ npm run dev    # parcel index.html -> http://localhost:1234
 npm run build  # parcel build index.html -> dist/
 ```
 
-### Lec 02 – Igniting the App (`lec03/`)
+### Lec 03 – Laying the Foundation (`lec03/`)
 
-### Date - 08-10-2026
+### Date - 09-10-2026
+
+Theory: JSX, transpilation, and functional components.
+
+- JSX is not HTML: HTML-like syntax that describes a React element (`lec03/App.js:4-8`)
+- Transpilation chain: `JSX => React.createElement() => React element (JS object) => HTML element` — Parcel runs Babel to do the JSX transform and to convert modern JS for older browsers
+- JSX attributes differ from HTML: `className` instead of `class`, camelCase props like `tabIndex`, JS values in `{}` (`lec03/App.js:5`)
+- React element: a plain object/immutable snapshot created by JSX or `React.createElement`; rendered once via `root.render(element)`
+- Functional component: a plain JS function starting with a capital letter that returns JSX (`lec03/App.js:36-42`)
+- `{}` interpolation: any JS expression can run inside JSX (`lec03/App.js:23-26`)
+- Composition (3 ways, all shown in `lec03/App.js:20-33`):
+  - `{jsxHeading}` — embed an element variable
+  - `{functionHeading()}` — call a function returning JSX
+  - `<Heading />` — render a component (preferred; enables hooks/state later)
+- `root.render(<Container />)` (`lec03/App.js:46`) mounts the component tree into `<div id="root">` (`lec03/index.html:10`)
+
+Run:
+
+```bash
+cd lec03
+npm install
+npm run dev
+```

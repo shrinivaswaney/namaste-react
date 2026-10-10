@@ -1,0 +1,35 @@
+{
+  "name": "lec03",
+  "version": "1.0.0",
+  "description": "this is for lec-03",
+  "scripts": {
+    "test": "jest",
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shrinivaswaney/namaste-react.git"
+  },
+  "keywords": [
+    "react",
+    "javascript"
+  ],
+  "author": "Shrinivas Waney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shrinivaswaney/namaste-react/issues"
+  },
+  "homepage": "https://github.com/shrinivaswaney/namaste-react#readme",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "cover 99.9% in IN"
+  ]
+}
