@@ -81,3 +81,7 @@ cd lec03
 npm install
 npm run dev
 ```
+
+### Lec 04 – Laying the Foundation (`lec03/`)
+
+### Date - 09-10-2026
