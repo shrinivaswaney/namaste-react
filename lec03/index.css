@@ -55,7 +55,7 @@
   width: 100%;
   border: none;
   background: transparent;
-  outline: none; /* Removes the default blue browser outline */
+  outline: none;
   font-size: 16px;
   color: #3c4043;
 }

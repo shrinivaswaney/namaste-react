@@ -82,6 +82,35 @@ npm install
 npm run dev
 ```
 
-### Lec 04 – Laying the Foundation (`lec03/`)
+### Lec 04 – Fooder: Component Composition (`lec04/`)
 
-### Date - 09-10-2026
+### Date - 09-10-2026 to 18-10-2026
+
+Theory: structuring a real app by splitting the UI into a tree of reusable components.
+
+- Component tree: plan the app skeleton first — Header (Logo, NavLinks, Cart) / Body (Search, Restaurant Cards) / Footer (`lec04/App.js:6-15`); the code mirrors this plan with `<AppLayout><MainContent /></AppLayout>` (`lec04/App.js:17-23`)
+- Component composition with `children`: `AppLayout` renders `<Header />`, `<main>{children}</main>`, `<Footer />` so the parent provides the shell and the caller provides the body (`lec04/components/Layout.jsx:4-11`) — this is how layout components work
+- Splitting into modules: each UI piece is its own file/component — `Header`, `MainContent`, `Card`, `Footer` under `lec04/components/`, composed together in `AppLayout`
+- Props: passing data into components — `MainContent` passes `name`, `image`, `rating`, `cuisines`, `costForTwo`, `locality`, `distanceKm`, `banner`, `onClick` to `Card` (`lec04/components/MainContent.jsx:24-38`)
+- Destructuring props: `const Card = ({ name, image, ... }) => ...` pulls props out inline instead of `props.name` (`lec04/components/Card.jsx:52-62`); helper functions also receive individual props (`lec04/components/Card.jsx:19`)
+- Props are just data: arrays (`cuisines`, `banner`) and functions (`onClick`) can be passed; JSX accepts both `image="..."` and `image={"..."}` (`lec04/components/MainContent.jsx:26` vs `:41-43`)
+- Rendering lists: `navlinks.map(...)` with a `key` on each `<li>` (`lec04/components/Header.jsx:10-29`), and `banner.slice(...)` for offer tags (`lec04/components/Card.jsx:37-46`)
+- Rendering JSX from helpers: `Card` calls `imageContainer(...)` and `detailsContainer(...)` — any function returning JSX can be embedded like a component (`lec04/components/Card.jsx:65-66`)
+- Capitalised components vs lowercase host tags: `<item.icon size={20} />` renders because the reference is a capitalised member expression (`lec04/components/Header.jsx:24`)
+- Parcel asset imports: `url:` imports turn images into resolved URLs (`lec04/default.js:1-3`), so `import { logo } from "../default"` can be used as `src={logo}` (`lec04/components/Header.jsx:8,52`)
+- Styling: plain CSS files per section linked from `index.html` (`lec04/index.html:7-10`); JSX uses `className` and `style={{...}}` objects where needed (`lec04/components/MainContent.jsx:11`)
+- External packages as components: icons from `@phosphor-icons/react` are rendered like any other component (`lec04/components/MainContent.jsx:8-12`)
+- Note: `onClick={() => navigate(\`/restaurant/${id}\`)}`in`MainContent`references undefined`navigate`/`id` — a placeholder until routing arrives in a later lecture (`lec04/components/MainContent.jsx:37`)
+
+Run:
+
+````bash
+cd lec04
+npm install
+npm run dev
+```18-10-2026
+````
+
+### Lec 05 – Lets Get Hooked (`lec05/`)
+
+### Date - 18-10-2026
