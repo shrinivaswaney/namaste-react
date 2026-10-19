@@ -100,17 +100,40 @@ Theory: structuring a real app by splitting the UI into a tree of reusable compo
 - Parcel asset imports: `url:` imports turn images into resolved URLs (`lec04/default.js:1-3`), so `import { logo } from "../default"` can be used as `src={logo}` (`lec04/components/Header.jsx:8,52`)
 - Styling: plain CSS files per section linked from `index.html` (`lec04/index.html:7-10`); JSX uses `className` and `style={{...}}` objects where needed (`lec04/components/MainContent.jsx:11`)
 - External packages as components: icons from `@phosphor-icons/react` are rendered like any other component (`lec04/components/MainContent.jsx:8-12`)
-- Note: `onClick={() => navigate(\`/restaurant/${id}\`)}`in`MainContent`references undefined`navigate`/`id` — a placeholder until routing arrives in a later lecture (`lec04/components/MainContent.jsx:37`)
+- Note: `onClick={() => navigate(...)}` in `MainContent` references undefined `navigate`/`id` — a placeholder until routing arrives in a later lecture (`lec04/components/MainContent.jsx:37`)
 
 Run:
 
-````bash
+```bash
 cd lec04
 npm install
 npm run dev
-```18-10-2026
-````
+```
 
 ### Lec 05 – Lets Get Hooked (`lec05/`)
 
 ### Date - 18-10-2026
+
+Theory: state — the first React hook — and how data flows between components.
+
+- Hook: `useState` from React; called only at the top level of a component, returns a pair `[value, setValue]` (`lec05/src/components/MainContent.jsx:1,44-45`)
+- State vs normal variable: a plain `let` doesn't survive re-renders and changing it doesn't redraw the UI; state is a "superpowered variable" — calling the setter schedules a re-render of that component
+- Initial value: `useState(list)` uses `list` only for the first render; later renders use the stored value (`lec05/src/components/MainContent.jsx:44`)
+- Setters replace, they don't mutate: the filtered list comes from `.filter()` / `[...list].sort()` — a copy is sorted first so the original `list` constant is never mutated (`lec05/src/components/MainContent.jsx:17-19`)
+- One state per concern: `restaurants` (what to show) and `activeFilter` (which button is highlighted), both updated together in one handler (`lec05/src/components/MainContent.jsx:47-50`)
+- Deriving from a single source: every filter recomputes from the full `list` constant, never from the current state — so clicking a filter repeatedly can't compound results (`lec05/src/components/MainContent.jsx:12-24`)
+- Data goes down, events go up: `MainContent` owns the state and passes `activeFilter` (data) + `onSelect` (handler) as props to the presentational `FilterGroup` (`lec05/src/components/MainContent.jsx:26-40,63`)
+- Controlled UI: the button's `className` is derived from state (`activeFilter === filter.id ? "active" : ""`), so the highlight can't desync from the data (`lec05/src/components/MainContent.jsx:32`)
+- Event handlers as props: `onClick={() => onSelect(filter.id)}` here; function props flow through data too — `list` items carry an `onClick` (`lec05/src/utils/constant.js:260`) that `Card` spreads onto the div (`lec05/src/components/Card.jsx:67`)
+- Rendering state: `restaurants.map(res => <Card key={res.id} res={res} />)` — changing state re-runs the map and redraws the list (`lec05/src/components/MainContent.jsx:67-69`)
+- One object prop: `Card` receives the whole `res` object and destructures it inside (`lec05/src/components/Card.jsx:53-64`)
+- Separation of data and UI: `src/utils/constant.js` exports `navlinks`, `CDN_URL`, and restaurant data; image URLs are built as `CDN_URL + image_id` (`lec05/src/components/Card.jsx:7`)
+- Project layout: code moved under `src/` — `src/components/`, `src/utils/`, `src/css/`, with `index.html` loading `./src/App.js` and the CSS files (`lec05/index.html:7-14`)
+
+Run:
+
+```bash
+cd lec05
+npm install
+npm run dev
+```
