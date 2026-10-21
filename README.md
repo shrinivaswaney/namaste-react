@@ -137,3 +137,35 @@ cd lec05
 npm install
 npm run dev
 ```
+
+### Lec 06 – Exploring the World (`lec06/`)
+
+### Date - 19-10-2026 to 21-10-2026
+
+Theory: leaving the static world — fetching live restaurant data from the Swiggy API and rendering whatever comes back.
+
+- `useEffect` for side effects: the fetch can't run in the component body (it would refetch on every render), so `useEffect(() => { fetchData(); }, [])` runs it once after mount (`lec06/src/components/MainContent.jsx:109-111`)
+- `async/await` + promises: `fetch(url)` returns a promise; `await data?.json()` parses the body (`lec06/src/components/MainContent.jsx:61-67`)
+- Live API: hits `https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.14630&lng=79.08490...` (`lec06/src/components/MainContent.jsx:63-65`); CORS caveat — Swiggy sends no CORS headers for localhost, so a plain browser rejects the request and the app shows the empty state; use a dev proxy or mocked JSON to see data
+- `try / catch / finally`: the network failure is caught and logged, and `finally` clears `isLoading` on every path (`lec06/src/components/MainContent.jsx:102-106`)
+- Optional chaining + `??` to survive a nested response: `json?.data?.cards?.map(...)?.find(...)`, `info.sla?.slaString`, `?? []` (`lec06/src/components/MainContent.jsx:69-74`)
+- Normalising server data: entries unwrapped (`r?.info`), validated (`info?.id && info?.name`), then mapped into the flat shape the UI owns — digits stripped from `costForTwo` via regex, `locality ?? areaName` fallback (`lec06/src/components/MainContent.jsx:78-101`)
+- A third piece of state for loading: `isLoading` starts `true` and drives a render ternary — skeletons → cards → empty state (`lec06/src/components/MainContent.jsx:137-149`)
+- Skeleton cards: `SkeletonCard` mirrors `Card`'s markup and geometry exactly (same `.card` / `.image` / `.info` / `.row` classes plus `.sk` shimmer bars) so the layout doesn't jump when data lands; `SKELETON_COUNT` exported for the placeholder grid (`lec06/src/components/SkeletonCard.jsx:1-24`)
+- Derived, never stored: `visibleRestaurants = searchRestaurants(searchQuery, applyFilter(activeFilter, restaurants))` is recomputed each render from the two inputs (`lec06/src/components/MainContent.jsx:117-120`)
+- Controlled search input: `searchQuery` state lives in `MainContent`, the setter flows down as a prop, and `onChange={(e) => setSearchQuery(e.target.value)}` writes it back (`lec06/src/components/MainContent.jsx:59,133`, `lec06/src/components/SearchBar.jsx:3,13-19`) — without the state update the input is frozen
+- Search matches `name`, `cuisines`, and `locality` case-insensitively and ANDs with the active filter; an empty query matches everything (`lec06/src/components/MainContent.jsx:26-36`)
+- One handler per intent: filter buttons get `onSelect={handleFilter}` (receives an id), the input gets the setter directly — sharing one handler had put the change *event* object into `activeFilter` (`lec06/src/components/MainContent.jsx:113-115,133-134`)
+- The empty state names the failed input: active query → `No restaurants match "xyz".`, otherwise the filter hint (`lec06/src/components/MainContent.jsx:144-148`)
+- Cards defend against partial API data: destructure with defaults from `res ?? {}` (`name = ""`, `cuisines = []`) and render every photo chip conditionally (`rating != null ? ... : null`) (`lec06/src/components/Card.jsx:13-35,68-95`)
+- Static list retired: `constant.js` no longer holds restaurant data — only `navlinks` and `CDN_URL`, which is prefixed to `cloudinaryImageId` for images (`lec06/src/utils/constant.js:3-10`, `lec06/src/components/Card.jsx:14`)
+- Swiggy-style chrome: sticky white header with nav, city picker, and outlined sign-in pill (`lec06/src/components/Header.jsx:8-29`, `lec06/src/css/Header.css`); toolbar keeps search left, filter pills right
+- Accessibility: `aria-hidden` skeletons, `role="button"` + `tabIndex` on cards with `:focus-visible` rings (`lec06/src/components/SkeletonCard.jsx:5`, `lec06/src/components/Card.jsx:85`)
+
+Run:
+
+```bash
+cd lec06
+npm install
+npm run dev
+```

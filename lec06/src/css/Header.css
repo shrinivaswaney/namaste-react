@@ -1,0 +1,209 @@
+/* Header Component — modeled on swiggy.com's top bar */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 24px;
+  box-sizing: border-box;
+
+  background-color: #fff;
+  border-bottom: 1px solid #e9e9e9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  color: #3d4143;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue",
+    Arial, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-container img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.logo-container h1 {
+  margin: 0;
+  font-size: 22px;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #282c2f;
+}
+
+/* nav links + location picker, grouped toward the left */
+.header-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.nav-items > ul {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.nav-items > ul > li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.nav-items > ul > li a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-items > ul > li p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.nav-items > ul > li:hover {
+  color: #fc8019;
+}
+
+.nav-items > ul > li a:focus-visible {
+  outline: 2px solid #fc8019;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* city picker, like swiggy's location selector */
+.location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #3d4143;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.location:hover {
+  background-color: #f4f4f5;
+}
+
+.location span {
+  white-space: nowrap;
+}
+
+.location-pin {
+  flex-shrink: 0;
+  color: #fc8019;
+}
+
+.location-caret {
+  flex-shrink: 0;
+  color: #9ea0a3;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.actions > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #3d4143;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.actions > button:hover {
+  background-color: #f4f4f5;
+}
+
+/* `.actions > .login` (0,2,0) must outrank `.actions > button` (0,1,1),
+   otherwise this button gets squished to the 30px icon size */
+.actions > .login {
+  width: auto;
+  height: 40px;
+  gap: 8px;
+  padding: 0 18px;
+  border: 1px solid #d4d5d9;
+  border-radius: 999px;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #282c2f;
+}
+
+.actions > .login p {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.actions > .login:hover {
+  background-color: #f8f8f8;
+  border-color: #b9babd;
+}
+
+.actions > button:focus-visible,
+.location:focus-visible {
+  outline: 2px solid #fc8019;
+  outline-offset: 2px;
+}
+
+@media (max-width: 880px) {
+  header {
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .header-menu {
+    gap: 12px;
+  }
+
+  .nav-items > ul {
+    gap: 14px;
+  }
+
+  .location span,
+  .location-caret {
+    display: none;
+  }
+}
