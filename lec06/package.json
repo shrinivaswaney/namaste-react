@@ -1,11 +1,11 @@
 {
-  "name": "lec05",
+  "name": "lec06",
   "version": "1.0.0",
-  "description": "this is for lec-05",
+  "description": "this is for lec-06",
   "scripts": {
     "test": "jest",
-    "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "dev": "(lsof -ti:3000 | xargs kill -9 2>/dev/null || true) && rm -rf .parcel-cache dist && parcel index.html --port 3000",
+    "build": "parcel build index.html --cache-dir .parcel-cache-build"
   },
   "repository": {
     "type": "git",
