@@ -1,0 +1,113 @@
+header {
+  width: 100%;
+  height: 80px;
+  padding: 0 10px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--surface);
+}
+
+.logo {
+  width: 53px;
+  height: 53px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--white);
+  background-color: var(--orange);
+  border-radius: var(--radius-lg);
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 16.8px;
+}
+
+.location > .other {
+  color: var(--subtle);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  font-weight: 600;
+  transition: 0.3s all ease;
+
+  &:hover {
+    color: var(--orange);
+  }
+}
+
+.location > .muted {
+  color: var(--subtle);
+  font-weight: 500;
+  transition: 0.3s all ease;
+
+  &:hover {
+    font-weight: 300;
+  }
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.navbar > a {
+  color: var(--black);
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-decoration: none;
+  &:hover {
+    color: var(--orange);
+  }
+}
+
+.navbar > a > p {
+  position: absolute;
+  top: -5px;
+  right: -20px;
+  font-size: 10px;
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+.navbar > a > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar > a > span > p,
+.singin > p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.singin {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  color: var(--black);
+  text-decoration: none;
+  &:hover {
+    color: var(--orange);
+  }
+}

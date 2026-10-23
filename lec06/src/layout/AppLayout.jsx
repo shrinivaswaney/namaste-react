@@ -1,10 +1,19 @@
 import Footer from "./Footer";
 import Header from "./Header";
 
-const AppLayout = ({ children }) => {
+const AppLayout = ({
+  location,
+  locationStatus,
+  onLocationChange,
+  children,
+}) => {
   return (
     <>
-      <Header />
+      <Header
+        location={location}
+        locationStatus={locationStatus}
+        onLocationChange={onLocationChange}
+      />
       {children}
       <Footer />
     </>

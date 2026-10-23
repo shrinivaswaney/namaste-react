@@ -1,9 +1,12 @@
-import React from 'react'
+import { useEffect } from "react";
+import { fetchData } from "../api/swiggy";
 
-const Content = () => {
-  return (
-    <div>Content</div>
-  )
-}
+const Content = ({ location }) => {
+  useEffect(() => {
+    fetchData(location.latitude, location.longitude);
+  }, []);
 
-export default Content
+  return <div className="container">Content</div>;
+};
+
+export default Content;
