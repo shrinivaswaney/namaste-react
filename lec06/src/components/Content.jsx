@@ -1,12 +1,15 @@
-import { useEffect } from "react";
-import { fetchData } from "../api/swiggy";
+import TopRestaurantChains from "./sections/TopRestaurantChains";
+import WhatsOnYourMind from "./sections/WhatsOnYourMind";
 
 const Content = ({ location }) => {
-  useEffect(() => {
-    fetchData(location.latitude, location.longitude);
-  }, []);
-
-  return <div className="container">Content</div>;
+  const lat = location?.latitude;
+  const lng = location?.longitude;
+  return (
+    <div className="container">
+      <WhatsOnYourMind latitude={lat} longitude={lng} />
+      <TopRestaurantChains latitude={lat} longitude={lng} />
+    </div>
+  );
 };
 
 export default Content;
