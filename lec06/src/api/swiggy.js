@@ -51,3 +51,49 @@ export async function fetchTopRestaurants(latitude, longitude) {
 
   return { header, items, id };
 }
+
+export async function fetchPopularRestaurants(latitude, longitude) {
+  const res = await fetch(SWIGGY_URL(latitude, longitude));
+  if (!res.ok) throw new Error(`Swiggy request failed: ${res.status}`);
+
+  const data = await res.json();
+
+  const widget = data?.data?.cards?.find(
+    (c) => c.card?.card?.id === "restaurant_grid_listing_v2",
+  )?.card?.card;
+
+  const headerCard = data?.data?.cards?.find(
+    (c) => c.card?.card?.id === "popular_restaurants_title",
+  );
+
+  const filters = data?.data?.cards?.find(
+    (c) => c.card?.card?.widgetId === "inlineFacetFilter",
+  ).card?.card?.sortConfigs;
+
+  const header =
+    headerCard?.card?.card?.title ??
+    "Restaurants with online food delivery in Nagpur";
+
+  const id = widget?.id;
+
+  const items =
+    widget?.gridElements?.infoWithStyle?.restaurants?.map((restaurant) => {
+      return {
+        id: restaurant.info.id,
+        image_id: restaurant.info.cloudinaryImageId,
+        name: restaurant.info.name,
+        link: restaurant.cta.link,
+        area: restaurant.info.areaName,
+        cost: restaurant.info.costForTwo,
+        cuisines: restaurant.info.cuisines,
+        rating: restaurant.info.avgRating,
+        sla: restaurant.info.sla.slaString,
+      };
+    }) ?? [];
+
+  console.log(filters);
+
+  // const filters =[]
+
+  return { header, items, id };
+}

@@ -1,3 +1,4 @@
+import PopularRestaurants from "./sections/PopularRestaurants";
 import TopRestaurantChains from "./sections/TopRestaurantChains";
 import WhatsOnYourMind from "./sections/WhatsOnYourMind";
 
@@ -8,6 +9,7 @@ const Content = ({ location }) => {
     <div className="container">
       <WhatsOnYourMind latitude={lat} longitude={lng} />
       <TopRestaurantChains latitude={lat} longitude={lng} />
+      <PopularRestaurants latitude={lat} longitude={lng} />
     </div>
   );
 };

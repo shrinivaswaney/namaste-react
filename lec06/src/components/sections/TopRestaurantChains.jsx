@@ -1,6 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon, StarIcon } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { fetchTopRestaurants, IMG_CDN } from "../../api/swiggy";
+import { SkeletonRestaurantCard } from "../skeletons/SkeletonCard";
 
 const TopRestaurantChains = ({ latitude, longitude }) => {
   const [header, setHeader] = useState("");
@@ -72,7 +73,21 @@ const TopRestaurantChains = ({ latitude, longitude }) => {
     return () => window.removeEventListener("resize", onResize);
   }, [items, id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <section className="section-2" aria-busy="true">
+        <div className="header">
+          <span className="sk-title shimmer-block" />
+        </div>
+        <div className="scroll-container">
+          {Array.from({ length: 6 }, (_, i) => (
+            <SkeletonRestaurantCard key={i} />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   if (error) return <p>Something went wrong: {error}</p>;
 
   return (

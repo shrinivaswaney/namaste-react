@@ -1,0 +1,78 @@
+.shimmer-block {
+  background-color: #f0f0f0;
+  background-image: linear-gradient(
+    to right,
+    #f0f0f0 0%,
+    #e4e5e8 20%,
+    #f0f0f0 40%,
+    #f0f0f0 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100vw 100%;
+  background-attachment: fixed;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100vw 0;
+  }
+  100% {
+    background-position: 100vw 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-block {
+    animation: none;
+  }
+}
+
+/* ---------- Shared pieces ---------- */
+.sk-line {
+  display: block;
+  height: 14px;
+  border-radius: 6px;
+}
+
+.sk-title {
+  display: block;
+  width: 260px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+/* ---------- Restaurant skeleton ---------- */
+.res-card.skeleton {
+  pointer-events: none;
+}
+
+.res-card.skeleton:hover {
+  transform: none;
+}
+
+.res-card.skeleton .top::after {
+  content: none;
+}
+
+.res-card.skeleton .bottom {
+  gap: 10px;
+  padding-top: 4px;
+}
+
+/* ---------- Category skeleton ---------- */
+.category-skeleton {
+  flex: 0 0 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.sk-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}

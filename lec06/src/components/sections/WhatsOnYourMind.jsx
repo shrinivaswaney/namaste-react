@@ -1,6 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { fetchFoodTypes, IMG_CDN } from "../../api/swiggy";
+import { SkeletonCategoryCard } from "../skeletons/SkeletonCard";
 
 const WhatsOnYourMind = ({ latitude, longitude }) => {
   const [header, setHeader] = useState("");
@@ -48,7 +49,21 @@ const WhatsOnYourMind = ({ latitude, longitude }) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <section className="section-1" aria-busy="true">
+        <div className="header">
+          <span className="sk-title shimmer-block" />
+        </div>
+        <div className="scroll-container">
+          {Array.from({ length: 8 }, (_, i) => (
+            <SkeletonCategoryCard key={i} />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   if (error) return <p>Something went wrong: {error}</p>;
 
   return (

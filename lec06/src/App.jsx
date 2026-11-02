@@ -8,6 +8,7 @@ import { reverseGeocode } from "./api/location";
 import "./css/Content.styles.css";
 import "./css/global.css";
 import "./css/Header.styles.css";
+import "./css/Shimmer.styles.css";
 
 // Low Level Design
 // Header
